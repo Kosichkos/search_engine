@@ -1,5 +1,0 @@
-if(EXISTS "C:/search_engine/cmake-build-debug/tests/GTests[1]_tests.cmake")
-  include("C:/search_engine/cmake-build-debug/tests/GTests[1]_tests.cmake")
-else()
-  add_test(GTests_NOT_BUILT GTests_NOT_BUILT)
-endif()
