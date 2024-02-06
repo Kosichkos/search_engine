@@ -119,8 +119,7 @@ void ConverterJSON::readConfigJSON()
     this->configJSON.config.version = jsonConfig["config"]["version"];
     this->configJSON.config.maxResponses = jsonConfig["config"]["max_responses"];
     for (const auto& item : jsonConfig["files"]) {
-        std::filesystem::path filePath = item;
-        this->configJSON.filePaths.emplace_back(filePath);
+        this->configJSON.filePaths.emplace_back(item);
     }
 }
 
