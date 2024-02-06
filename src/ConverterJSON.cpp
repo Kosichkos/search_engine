@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <filesystem>
 #include "EngineExceptions.h"
 #include "ConverterJSON.h"
 #include "version.h"
@@ -44,7 +45,8 @@ std::vector<std::string> ConverterJSON::getRequests()
 void ConverterJSON::putAnswers(const std::vector<std::vector<std::pair<int, float>>> &answers)
 {
     nlohmann::json jsonAnswers;
-    std::ofstream answersFile("./config/answers.json");
+    std::filesystem::path answersFilePath = std::filesystem::path(".\\config\\answers.json");
+    std::ofstream answersFile(answersFilePath);
     int requestInd = 1;
     for (const auto& pairVec : answers)
     {
@@ -88,7 +90,10 @@ void ConverterJSON::readConfigJSON()
     nlohmann::json jsonConfig;
     try
     {
-        std::ifstream configFile("./config/config.json");
+        std::filesystem::path configFilePath = std::filesystem::path("./config/config.json");
+        if (!std::filesystem::exists(configFilePath))
+            throw ConfigFileMissingException();
+        std::ifstream configFile(configFilePath);
         if (!configFile.is_open())
             throw ConfigFileMissingException();
         configFile >> jsonConfig;
@@ -113,8 +118,10 @@ void ConverterJSON::readConfigJSON()
     this->configJSON.config.name = jsonConfig["config"]["name"];
     this->configJSON.config.version = jsonConfig["config"]["version"];
     this->configJSON.config.maxResponses = jsonConfig["config"]["max_responses"];
-    for (auto it = jsonConfig["files"].begin(); it != jsonConfig["files"].end(); ++it)
-        this->configJSON.filePaths.emplace_back(it.value());
+    for (const auto& item : jsonConfig["files"]) {
+        std::filesystem::path filePath = item;
+        this->configJSON.filePaths.emplace_back(filePath);
+    }
 }
 
 void ConverterJSON::readRequestsJSON()
@@ -122,7 +129,10 @@ void ConverterJSON::readRequestsJSON()
     nlohmann::json jsonRequests;
     try
     {
-        std::ifstream requestsFile("./config/requests.json");
+        std::filesystem::path requestsFilePath = std::filesystem::path("./config/requests.json");
+        if (!std::filesystem::exists(requestsFilePath))
+            throw RequestsFileMissingException();
+        std::ifstream requestsFile(requestsFilePath);
         if (!requestsFile.is_open())
             throw RequestsFileMissingException();
         requestsFile >> jsonRequests;
@@ -132,6 +142,7 @@ void ConverterJSON::readRequestsJSON()
     {
         std::cerr << ex.what() << std::endl;
     }
-    for (auto it = jsonRequests["requests"].begin(); it != jsonRequests["requests"].end(); ++it)
-        this->requestsJSON.emplace_back(it.value());
+    for (const auto& item : jsonRequests["requests"]) {
+        this->requestsJSON.emplace_back(item);
+    }
 }
