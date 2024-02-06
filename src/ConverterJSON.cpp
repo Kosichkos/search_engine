@@ -90,7 +90,7 @@ void ConverterJSON::readConfigJSON()
     nlohmann::json jsonConfig;
     try
     {
-        std::filesystem::path configFilePath = std::filesystem::path("./config/config.json");
+        std::filesystem::path configFilePath = std::filesystem::path(".\\config\\config.json");
         if (!std::filesystem::exists(configFilePath))
             throw ConfigFileMissingException();
         std::ifstream configFile(configFilePath);
@@ -129,7 +129,7 @@ void ConverterJSON::readRequestsJSON()
     nlohmann::json jsonRequests;
     try
     {
-        std::filesystem::path requestsFilePath = std::filesystem::path("./config/requests.json");
+        std::filesystem::path requestsFilePath = std::filesystem::path(".\\config\\requests.json");
         if (!std::filesystem::exists(requestsFilePath))
             throw RequestsFileMissingException();
         std::ifstream requestsFile(requestsFilePath);
