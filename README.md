@@ -1,4 +1,5 @@
 # __Search Engine__
+This program is a simple local search engine that is capable of searching for keywords in a set of text documents, as well as ranking them by relevance.
 
 ## This project was created using the following technologies
 - C++17
