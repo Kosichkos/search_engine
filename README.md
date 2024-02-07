@@ -6,9 +6,7 @@
 - Nlohmann JSON Library
 - GoogleTest
 - MinGW w64 13.2.0
-```
-  ___Important: the program in its current form is intended to work only on Windows. To work correctly on Linux, you need to slightly modify the paths to the files with which the program interacts.___
-```
+####  ___Important: the program in its current form is intended to work only on Windows. To work correctly on Linux, you need to slightly modify the paths to the files with which the program interacts.___
 
 ## Principle of operation and use
 * Before starting the application, you must specify the paths to the text files that the program will search. This must be done in the config.json file as shown in the example below:
