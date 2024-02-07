@@ -7,7 +7,7 @@ This project was created using the following technologies
 - GoogleTest
 - MinGW w64 13.2.0
 
-# Principle of operation and use
+## Principle of operation and use
 Before starting the application, you must specify the paths to the text files that the program will search. This must be done in the config.json file as shown in the example below:
 {
   "config": {
