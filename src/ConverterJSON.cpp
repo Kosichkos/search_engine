@@ -106,14 +106,17 @@ void ConverterJSON::readConfigJSON()
     catch (const ConfigFileMissingException &ex)
     {
         std::cerr << ex.what() << std::endl;
+        abort();
     }
     catch (const ConfigFileEmptyException &ex)
     {
         std::cerr << ex.what() << std::endl;
+        abort();
     }
     catch (const IncorrectVersionException &ex)
     {
         std::cerr << ex.what() << std::endl;
+        abort();
     }
     this->configJSON.config.name = jsonConfig["config"]["name"];
     this->configJSON.config.version = jsonConfig["config"]["version"];
@@ -140,6 +143,7 @@ void ConverterJSON::readRequestsJSON()
     catch (const RequestsFileMissingException &ex)
     {
         std::cerr << ex.what() << std::endl;
+        abort();
     }
     for (const auto& item : jsonRequests["requests"]) {
         this->requestsJSON.emplace_back(item);
